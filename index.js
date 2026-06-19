@@ -44,7 +44,7 @@ module.exports = function (app) {
   plugin.schema = {
     type: 'object',
     properties: {
-      rate: { type: 'number', title: 'Sample rate (seconds)', default: 20 },
+      rate: { type: 'number', title: 'Sample rate (seconds)', default: 10 },
       prefix: { type: 'string', title: 'Base Signal K path', default: 'environment.rpi' },
       perCore: { type: 'boolean', title: 'Report per-core CPU utilisation', default: true },
       storageMount: { type: 'string', title: 'Filesystem to report storage for', default: '/' },
@@ -194,7 +194,7 @@ module.exports = function (app) {
 
   plugin.start = function (options) {
     const o = Object.assign(
-      { rate: 20, prefix: 'environment.rpi', perCore: true, storageMount: '/', reportThrottle: true, throttleNotify: true },
+      { rate: 10, prefix: 'environment.rpi', perCore: true, storageMount: '/', reportThrottle: true, throttleNotify: true },
       options || {}
     )
     const p = o.prefix
@@ -216,7 +216,7 @@ module.exports = function (app) {
     lastCpu = null
     lastNotif = null
     poll(o)
-    timer = setInterval(() => poll(o), (o.rate || 20) * 1000)
+    timer = setInterval(() => poll(o), (o.rate || 10) * 1000)
   }
 
   plugin.stop = function () { if (timer) { clearInterval(timer); timer = null } }

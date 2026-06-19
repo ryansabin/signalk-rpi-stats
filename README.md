@@ -40,7 +40,7 @@ Then enable **Raspberry Pi Stats** in the Signal K plugin config and restart the
 ## Configuration
 | Option | Default | Notes |
 |---|---|---|
-| Sample rate (s) | 20 | |
+| Sample rate (s) | 10 | |
 | Base Signal K path | `environment.rpi` | prefix for all paths |
 | Per-core CPU utilisation | true | also publish `.cpu.core.<n>.utilisation` |
 | Storage filesystem | `/` | mount to report storage for |
