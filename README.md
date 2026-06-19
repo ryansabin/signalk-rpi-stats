@@ -9,8 +9,8 @@ power/thermal throttling — with **no sudo and no native dependencies**.
 - `.cpu.frequency` (Hz) — current ARM clock
 - `.cpu.coreVoltage` (V) — `vcgencmd measure_volts core`
 - `.cpu.load.1m` / `.5m` / `.15m` — load averages
-- `.memory.utilisation` (ratio) and `.memory.available` (bytes)
-- `.storage.utilisation` (ratio) — for the configured mount (default `/`)
+- `.memory.utilisation` (ratio), `.memory.total`, `.memory.used`, `.memory.available` (bytes)
+- `.storage.utilisation` (ratio), `.storage.capacity`, `.storage.used`, `.storage.available` (bytes) — for the configured mount (default `/`)
 - `.uptime` (s)
 - `.throttling.underVoltage` / `.throttled` / `.freqCapped` / `.softTempLimit` (bool, current)
 - `.throttling.underVoltageOccurred` / `.throttledOccurred` (bool, sticky since boot)

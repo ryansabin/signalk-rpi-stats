@@ -1,6 +1,6 @@
 {
   "name": "signalk-rpi-stats",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Signal K plugin publishing Raspberry Pi system stats: CPU temperature/utilisation/frequency, core voltage, memory, storage, uptime, load average, and throttling/under-voltage detection",
   "main": "index.js",
   "scripts": { "test": "node -e \"require('./index.js'); console.log('load OK');\"" },

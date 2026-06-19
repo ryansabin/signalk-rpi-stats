@@ -11,8 +11,13 @@
  *   .cpu.coreVoltage        V     (vcgencmd measure_volts core)
  *   .cpu.load.1m/.5m/.15m   -     (os.loadavg)
  *   .memory.utilisation     ratio (/proc/meminfo, 1 - MemAvailable/MemTotal)
+ *   .memory.total           bytes
+ *   .memory.used            bytes
  *   .memory.available       bytes
  *   .storage.utilisation    ratio (statfs of the configured mount)
+ *   .storage.capacity       bytes (total size)
+ *   .storage.used           bytes
+ *   .storage.available      bytes
  *   .uptime                 s     (os.uptime)
  *   .throttling.*           bool  (vcgencmd get_throttled bit flags)
  *   notifications.<prefix>.throttling  alarm on under-voltage / throttling
@@ -81,7 +86,7 @@ module.exports = function (app) {
       const g = (k) => { const m = mi.match(new RegExp('^' + k + ':\\s+(\\d+)', 'm')); return m ? parseInt(m[1], 10) * 1024 : null }
       const total = g('MemTotal')
       const avail = g('MemAvailable')
-      if (total && avail != null) return { ratio: 1 - avail / total, total, available: avail }
+      if (total && avail != null) return { ratio: 1 - avail / total, total, used: total - avail, available: avail }
     } catch (e) {}
     return null
   }
@@ -89,9 +94,10 @@ module.exports = function (app) {
   function storageUtil (mount) {
     try {
       const s = fs.statfsSync(mount)
-      const total = s.blocks * s.bsize
-      const free = s.bavail * s.bsize
-      if (total > 0) return { ratio: 1 - free / total, total, free }
+      const capacity = s.blocks * s.bsize
+      const available = s.bavail * s.bsize
+      const used = (s.blocks - s.bfree) * s.bsize
+      if (capacity > 0) return { ratio: 1 - s.bavail / s.blocks, capacity, used, available }
     } catch (e) {}
     return null
   }
@@ -123,10 +129,20 @@ module.exports = function (app) {
     }
 
     const mem = memUtil()
-    if (mem) { push(p + '.memory.utilisation', +mem.ratio.toFixed(3)); push(p + '.memory.available', mem.available) }
+    if (mem) {
+      push(p + '.memory.utilisation', +mem.ratio.toFixed(3))
+      push(p + '.memory.total', mem.total)
+      push(p + '.memory.used', mem.used)
+      push(p + '.memory.available', mem.available)
+    }
 
     const st = storageUtil(o.storageMount || '/')
-    if (st) push(p + '.storage.utilisation', +st.ratio.toFixed(3))
+    if (st) {
+      push(p + '.storage.utilisation', +st.ratio.toFixed(3))
+      push(p + '.storage.capacity', st.capacity)
+      push(p + '.storage.used', st.used)
+      push(p + '.storage.available', st.available)
+    }
 
     push(p + '.uptime', Math.round(os.uptime()))
     const la = os.loadavg()
@@ -188,8 +204,13 @@ module.exports = function (app) {
       { path: p + '.cpu.frequency', value: { units: 'Hz' } },
       { path: p + '.cpu.coreVoltage', value: { units: 'V' } },
       { path: p + '.memory.utilisation', value: { units: 'ratio' } },
+      { path: p + '.memory.total', value: { units: 'bytes' } },
+      { path: p + '.memory.used', value: { units: 'bytes' } },
       { path: p + '.memory.available', value: { units: 'bytes' } },
       { path: p + '.storage.utilisation', value: { units: 'ratio' } },
+      { path: p + '.storage.capacity', value: { units: 'bytes' } },
+      { path: p + '.storage.used', value: { units: 'bytes' } },
+      { path: p + '.storage.available', value: { units: 'bytes' } },
       { path: p + '.uptime', value: { units: 's' } }
     ] }] })
     lastCpu = null
