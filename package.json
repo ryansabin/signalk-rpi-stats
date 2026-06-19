@@ -3,7 +3,9 @@
   "version": "0.2.1",
   "description": "Signal K plugin publishing Raspberry Pi system stats: CPU temperature/utilisation/frequency, core voltage, memory, storage, uptime, load average, and throttling/under-voltage detection",
   "main": "index.js",
-  "scripts": { "test": "node -e \"require('./index.js'); console.log('load OK');\"" },
+  "scripts": {
+    "test": "node -e \"require('./index.js'); console.log('load OK');\""
+  },
   "keywords": [
     "signalk-node-server-plugin",
     "signalk-category-utility",
@@ -15,5 +17,13 @@
   ],
   "author": "Ryan Sabin",
   "license": "Apache-2.0",
-  "dependencies": {}
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryansabin/signalk-rpi-stats.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ryansabin/signalk-rpi-stats/issues"
+  },
+  "homepage": "https://github.com/ryansabin/signalk-rpi-stats#readme"
 }
