@@ -1,7 +1,7 @@
 {
   "name": "signalk-rpi-stats",
-  "version": "0.3.0",
-  "description": "Signal K plugin publishing Raspberry Pi system stats: CPU temperature/utilisation/frequency, core voltage, memory, storage, uptime, load average, throttling/under-voltage detection, and display backlight brightness (read + control via PUT)",
+  "version": "0.4.0",
+  "description": "Signal K plugin publishing Raspberry Pi system stats: CPU temperature/utilisation/frequency, core voltage, memory, storage, uptime, load average, throttling/under-voltage detection, OverlayFS and boot partition read-only state, and display backlight brightness (read + control via PUT)",
   "main": "index.js",
   "scripts": {
     "test": "node -e \"require('./index.js'); console.log('load OK');\""
@@ -13,7 +13,9 @@
     "raspberry-pi",
     "monitoring",
     "cpu",
-    "temperature"
+    "temperature",
+    "overlayfs",
+    "backlight"
   ],
   "author": "Ryan Sabin",
   "license": "Apache-2.0",
