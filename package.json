@@ -25,5 +25,11 @@
   "bugs": {
     "url": "https://github.com/ryansabin/signalk-rpi-stats/issues"
   },
-  "homepage": "https://github.com/ryansabin/signalk-rpi-stats#readme"
+  "homepage": "https://github.com/ryansabin/signalk-rpi-stats#readme",
+  "signalk": {
+    "screenshots": [
+      "./docs/screenshots/data-browser.png",
+      "./docs/screenshots/configuration.png"
+    ]
+  }
 }
