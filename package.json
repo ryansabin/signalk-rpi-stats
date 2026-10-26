@@ -4,7 +4,7 @@
   "description": "Signal K plugin publishing Raspberry Pi system stats: CPU temperature/utilisation/frequency, core voltage, memory, storage, uptime, load average, throttling/under-voltage detection, and display backlight brightness (read + control via PUT)",
   "main": "index.js",
   "scripts": {
-    "test": "node -e \"require('./index.js'); console.log('load OK');\""
+    "test": "node --test"
   },
   "keywords": [
     "signalk-node-server-plugin",
