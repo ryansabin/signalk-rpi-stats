@@ -35,7 +35,7 @@ cd ~/.signalk
 npm install signalk-rpi-stats
 ```
 
-Then enable **Raspberry Pi Stats** in the Signal K plugin config and restart the server.
+Then restart the server. The plugin starts enabled with the defaults below; change them, or disable it, under **Server → Plugin Config → Raspberry Pi Stats**.
 
 ## Configuration
 | Option | Default | Notes |
